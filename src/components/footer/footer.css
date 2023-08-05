@@ -1,0 +1,81 @@
+.ads h2, 
+.info h2{
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+.box{
+    width: 363px;
+    height: 424px;
+    background: #F4F4F4;
+    /* margin-top: 20px;     */
+}
+.box div{
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.box div button{
+    width: 203px;
+    height: 44px;
+    background: #25B8E7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+
+}
+.assembly{
+    display: flex;
+    /* justify-content: center; */
+    flex-wrap: wrap;
+    
+    /* margin: auto 10px; */
+}
+.box img{
+    width: 100%;
+}
+.info div{
+    display: flex;
+    justify-content: space-around;
+}
+.info div div{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.info{
+    margin: auto 60px;
+}
+.footer1{
+    background: #F4F3F3;
+    height: 433px;
+    margin-top: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.footer1 h1{
+    font-size: 128px;
+    line-height: 30px;
+    font-weight: 500;
+}
+
+@media (max-width: 1108px){
+    .info div{
+        flex-direction: column;
+
+    }
+    .info{
+        margin: 0 15px;
+    }
+    .footer1{
+        margin-top: 100px;
+
+    }
+}

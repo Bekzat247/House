@@ -1,0 +1,44 @@
+h2{
+    height: 20vh;
+    font-size: 40px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+form{
+    width: 761px;
+    margin: auto 40px;
+}
+form label{
+    margin-top: 20px;
+    display: block;
+}
+form label button{
+    border-radius: 20px;
+    width: 136px;
+    height: 46px;
+    border: 1px solid #6AC4FF;
+    background: white;
+    color: #6AC4FF; 
+    font-size: 16px;
+    line-height: 24px;
+    cursor: pointer;
+}
+.btn{
+    text-align: right;
+    width: 80%;
+}
+input{
+    padding: 12px 5px;
+    width: 80%;
+    border-radius: 6px;
+    font-size: 16px;
+    border: 1px solid rgb(188, 185, 185);
+    outline: none;
+    
+}
+.footer{
+    height: 433px;
+    margin-top: 855px;
+}

@@ -1,0 +1,30 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.form label{
+    margin-top: 10px;
+}
+.form textarea{
+    height: 15vh;
+    width: 100%;
+}
+.form input{
+    width: 100%;
+}
+.form div{
+    text-align: right;
+}
+.form div a{
+    text-decoration: none;
+    color: black;
+}
+.a{
+    margin: 50px;
+}
+.footer{
+    height: 433px;
+    margin-top: 855px;
+    background-color: #F4F3F3;
+}

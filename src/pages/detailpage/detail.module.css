@@ -1,0 +1,20 @@
+.wrapper{
+    margin: auto 10%;
+    margin-top: 40px;
+} 
+.left_div, .right_div{
+    height: 600px;
+    width: 50%;
+}
+.wrapper > div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+.wrapper a { 
+    text-decoration: none;
+    color: black;
+}
+.left_div img{
+    width: 100%;
+}
