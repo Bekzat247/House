@@ -4,48 +4,14 @@ import Title from "../title/title"
 import "./footer.css"
 import img2 from "./image2.png"
 import Preloader from "../preloader/preloader"
+import { useSelector } from "react-redux"
+import Api from "../../Api/Api"
 
 
-
+ 
 const Footer = () => {
-    const url = 'https://64c2579deb7fd5d6ebcfa937.mockapi.io/house1'
-    const [cards, setCards] = useState([])
-    const [isLoading, setLoading] = useState(true)
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await fetch(url)
-            const data = await res.json()
-            setCards(data)
-            setLoading(false)
-        }
-        fetchData()
-    }, [])
-    const onDelete = (id) => {
-        let conf = window.confirm('Вы уверены что хотите удалить обьявление ? Если удалите то данные навсегда будут стерты!')
-        if(conf === true){
-            fetch(`https://64c2579deb7fd5d6ebcfa937.mockapi.io/house1/${id}`, {
-                method: 'DELETE',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-            })
-                .then((response) => {
-                  if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                  }
-                  console.log('Успешно удалено');
-                })
-                .catch((error) => {
-                  console.error('Ошибка при удалении:', error);
-                })   
-                window.location.reload();
-                alert('Вы успешно удалили обьявление')
-        }else{
-            alert('Вы отменили удаление')
-        }
-        console.log(id)
-    };
-    
+    const {isLoading, houses: cards} = useSelector((state) => state.main)
+    console.log(cards);    
     return (
         <div>
             {
@@ -62,7 +28,6 @@ const Footer = () => {
                                     <Cards 
                                     key={el.id}
                                     {...el}
-                                    onDelete={onDelete}
                                     
                                     />
                                 ))

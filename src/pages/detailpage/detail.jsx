@@ -2,42 +2,70 @@ import { useEffect, useState } from 'react';
 import Herder from '../../components/header/header'
 import Title from '../../components/title/title'
 import css from './detail.module.css'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import "react-responsive-carousel/lib/styles/carousel.min.css"; 
+import { Carousel } from 'react-responsive-carousel';
+import Preloader from '../../components/preloader/preloader';
+import Error from '../../components/error/error';
+import Api from '../../Api/Api';
 
-function Detail(props) 
-    {const location = useLocation();
-    const info = location.state.id
-    const url = 'https://64c2579deb7fd5d6ebcfa937.mockapi.io/house1/' + info
-    const [comp, setComp] = useState([])
-    useEffect(() => {
-      const fetchData = async () => {
-          const res = await fetch(url)
-          const data = await res.json()
-          setComp(data)
-      }
-      fetchData()
+
+
+
+function Detail() {
+
+  const [comp, setComp] = useState([])
+  const [isLoading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const params = useParams()
+
+  useEffect(() => {
+    const fetchData = () => {
+      Api.getHouseById(params.id)
+        .then(resp => {
+          setComp(resp.data)
+          console.log(resp.data);
+        })
+        .finally(setLoading(false))
+        .catch((e) => setError(e))
+    } 
+    fetchData()
   }, [])
 
-  console.log(comp);
 
+  
+  if (isLoading) {
+    return <Preloader />
+  }
+  if (error){
+    return <Error />
+  }
   return (
     <div >
-        <Herder />
-        <div className={css.wrapper}>
-            <Link to='/'>GO BACK</Link>
-            <div>
-              <div className={css.left_div}>
-                  <img src={comp.image}/>
-                  <div className= {css.slider}></div>
+      <div className={css.wrapper}>
+        <Link to='/'>GO BACK</Link>
+        <div>
+          <div className={css.left_div}>
+            <Carousel showIndicators={false} showStatus={false} infiniteLoop={true}>
+              <div>
+                <img src={comp.image} />
               </div>
-              <div className={css.right_div}>
-                <Title title="Продаю дом 5км в Нарыне"/>
-                <Title title={'Цена:' + info + '$'}/>
-                <Title title={comp.desc}/>
+              <div>
+                <img src={comp.image} />
               </div>
-            </div>
-            <button>Позвонить</button>
+              <div>
+                <img src={comp.image} />
+              </div>
+            </Carousel>
+          </div>
+          <div className={css.right_div}>
+            <Title title={comp.title} />
+            <Title title={'Цена:' + comp.price + '$'} />
+            <p>{comp.desc}</p>
+          </div>
         </div>
+        <button>Позвонить</button>
+      </div>
     </div>
   )
 }

@@ -1,0 +1,20 @@
+.wrapper{
+    margin: 25px 125px;
+    text-align: center;
+    margin-top: 200px;
+}
+.actions{
+    display: flex;
+    justify-content: center;
+    grid-gap: 50px;
+    margin-top: 40px;
+}
+.actions > button, .actions > a button{
+    padding: 15px 45px;
+    font-size: 22px;
+    background: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}

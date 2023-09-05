@@ -1,8 +1,11 @@
-import Herder from "../../components/header/header"
+
 import Title from "../../components/title/title"
 import { useNavigate } from "react-router-dom"
 import css from "./make.module.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { setStatusOfFulfiledHouses } from "../redux/mainSlice"
+import { createHouses } from "../redux/AsuncThunk"
 
 
 const Maker = () => {
@@ -12,6 +15,18 @@ const Maker = () => {
     const [number, setNumber] = useState('')
     const [isSending, setSending] = useState(false)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const {statusOfCReatingHouse} = useSelector((state) => state.main)
+    useEffect(() => {
+        if(statusOfCReatingHouse === 'success'){
+            navigate('/ads')
+            dispatch(setStatusOfFulfiledHouses())
+        }else if(statusOfCReatingHouse ==='error'){
+            alert('При выполнении заппоса произошла ошибка. Пожалуйста повторите запрос')
+            setSending(false)
+            dispatch(setStatusOfFulfiledHouses())
+        }
+    }, [statusOfCReatingHouse])
 
     const handleSave = async (e) => {
         e.preventDefault()
@@ -26,24 +41,26 @@ const Maker = () => {
             image: image,
             desc: desc,
         }
-        try {
-            const res = await fetch('https://64c2579deb7fd5d6ebcfa937.mockapi.io/house1', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            if(res.status === 201){
-                alert('Поздровляю, вы успешно создали обьявление')
-                navigate('/ads')
-            }else{
-                throw new Error()
-            }
-        } catch (error) {
-            alert('При выполнении заппоса произошла ошибка. Пожалуйста повторите запрос')
-            setSending(false)
-        }    
+        
+        dispatch(createHouses   (data))
+        // try {
+            // const res = await fetch('https://64c2579deb7fd5d6ebcfa937.mockapi.io/house1', {
+            //     method: 'POST',
+            //     body: JSON.stringify(data),
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            // })
+            // if(res.status === 201){
+            //     alert('Поздровляю, вы успешно создали обьявление')
+            //     navigate('/ads')
+            // }else{
+            //     throw new Error()
+            // }
+        // } catch (error) {
+        //     alert('При выполнении заппоса произошла ошибка. Пожалуйста повторите запрос')
+        //     setSending(false)
+        // }    
     }
     const handleNameChange = (e) => {
         setName(e.target.value)
@@ -59,7 +76,6 @@ const Maker = () => {
     }
     return (
         <div>
-            <Herder/>
             <Title title="Создать обьявление"/>
             <form className={css.form} onSubmit={handleSave}>
                 <label>
@@ -106,7 +122,6 @@ const Maker = () => {
                 </label>
                 <label className="lebelbtn">
                     <button disabled={isSending}>Save</button>
-                    {/* <div><Link className={css.a}>Close</Link><Link><button>Save</button></Link></div> */}
                 </label>
             </form>
             <div className={css.footer}></div>
